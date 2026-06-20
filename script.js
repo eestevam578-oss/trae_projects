@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (savedUrl && savedKey) {
             initSupabase(savedUrl, savedKey);
-            supabaseSetupModal.style.display = 'none';
+            supabaseSetupModal.classList.remove('active');
+        } else {
+            supabaseSetupModal.classList.add('active');
         }
     }
 
@@ -63,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('supabaseUrl', url);
             localStorage.setItem('supabaseKey', key);
             initSupabase(url, key);
-            supabaseSetupModal.style.display = 'none';
+            supabaseSetupModal.classList.remove('active');
         }
     });
 
