@@ -1,10 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Variáveis globais
     let supabase = null;
+    let useSupabase = false;
     let categories = [];
     let dishes = [];
     let currentFilter = 'todos';
     let editingId = null;
+
+    // Dados iniciais para fallback
+    const initialCategories = [
+        { id: 'entradas', name: 'Entradas' },
+        { id: 'porcoes', name: 'Porções' },
+        { id: 'principais', name: 'Pratos Principais' },
+        { id: 'frutosdomar', name: 'Frutos do Mar' },
+        { id: 'bebidas', name: 'Bebidas' },
+        { id: 'sobremesas', name: 'Sobremesas' }
+    ];
+
+    const initialDishes = [
+        { id: 1, name: 'Calamares Fritos', price: 'R$ 34,90', description: 'Anéis de lula crocantes, servidos com molho tártaro e limão siciliano.', category_id: 'entradas', hot: false, popular: false, image: 'https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=fried%20calamari%20appetizer%20with%20lemon%20and%20sauce&image_size=square' },
+        { id: 2, name: 'Camarão ao Cocktail', price: 'R$ 42,90', description: 'Camarões grandes cozidos, servidos com molho cocktail de maracujá.', category_id: 'entradas', hot: false, popular: true, image: 'https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=shrimp%20cocktail%20with%20avocado%20and%20tomato&image_size=square' },
+        { id: 3, name: 'Peixe Grelhado', price: 'R$ 69,90', description: 'Filé de corvina grelhado, arroz, salada e purê de batata.', category_id: 'principais', hot: true, popular: false, image: 'https://coreva-normal.trae.ai/api/ide/v1/text_to_image?prompt=grilled%20fish%20with%20vegetables%20and%20rice&image_size=square' }
+    ];
 
     // Elementos DOM
     const navToggle = document.getElementById('navToggle');
@@ -36,134 +53,220 @@ document.addEventListener('DOMContentLoaded', function() {
     // CONFIGURAÇÃO DO SUPABASE
     // ------------------------------
     
-    // Verificar se já temos credenciais salvas
     function checkSupabaseConfig() {
         const savedUrl = localStorage.getItem('supabaseUrl');
         const savedKey = localStorage.getItem('supabaseKey');
         
         if (savedUrl && savedKey) {
-            initSupabase(savedUrl, savedKey);
-            supabaseSetupModal.classList.remove('active');
+            try {
+                supabase = window.supabase.createClient(savedUrl, savedKey);
+                useSupabase = true;
+                loadData();
+                supabaseSetupModal.classList.remove('active');
+            } catch (error) {
+                console.error('Erro ao configurar Supabase:', error);
+                useSupabase = false;
+                loadLocalData();
+                supabaseSetupModal.classList.remove('active');
+            }
         } else {
+            useSupabase = false;
+            loadLocalData();
             supabaseSetupModal.classList.add('active');
         }
     }
 
-    // Inicializar Supabase
-    function initSupabase(url, key) {
-        supabase = window.supabase.createClient(url, key);
-        loadData();
-    }
-
     // Evento do formulário de configuração
-    supabaseForm.addEventListener('submit', (e) => {
+    supabaseForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const url = document.getElementById('supabaseUrl').value.trim();
         const key = document.getElementById('supabaseKey').value.trim();
         
         if (url && key) {
-            localStorage.setItem('supabaseUrl', url);
-            localStorage.setItem('supabaseKey', key);
-            initSupabase(url, key);
-            supabaseSetupModal.classList.remove('active');
+            try {
+                supabase = window.supabase.createClient(url, key);
+                localStorage.setItem('supabaseUrl', url);
+                localStorage.setItem('supabaseKey', key);
+                useSupabase = true;
+                await loadData();
+                supabaseSetupModal.classList.remove('active');
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao conectar ao Supabase. Verifique as credenciais.');
+            }
         }
     });
 
     // ------------------------------
-    // FUNÇÕES DO SUPABASE
+    // FUNÇÕES DE DADOS
     // ------------------------------
 
-    // Carregar todos os dados
     async function loadData() {
-        try {
-            // Carregar categorias
-            const { data: catData, error: catError } = await supabase
-                .from('categories')
-                .select('*')
-                .order('name');
-            
-            if (catError) throw catError;
-            categories = catData || [];
-            
-            // Carregar pratos
-            const { data: dishData, error: dishError } = await supabase
-                .from('dishes')
-                .select('*')
-                .order('name');
-            
-            if (dishError) throw dishError;
-            dishes = dishData || [];
-            
-            // Renderizar tudo
-            renderAll();
-        } catch (error) {
-            console.error('Erro ao carregar dados:', error);
-            alert('Erro ao carregar dados. Verifique suas credenciais do Supabase.');
+        if (useSupabase) {
+            try {
+                // Carregar categorias
+                const { data: catData, error: catError } = await supabase
+                    .from('categories')
+                    .select('*')
+                    .order('name');
+                
+                if (catError) {
+                    console.error('Erro categorias:', catError);
+                    categories = [...initialCategories];
+                } else {
+                    categories = catData && catData.length > 0 ? catData : [...initialCategories];
+                }
+                
+                // Carregar pratos
+                const { data: dishData, error: dishError } = await supabase
+                    .from('dishes')
+                    .select('*')
+                    .order('name');
+                
+                if (dishError) {
+                    console.error('Erro pratos:', dishError);
+                    dishes = [...initialDishes];
+                } else {
+                    dishes = dishData && dishData.length > 0 ? dishData : [...initialDishes];
+                }
+                
+                renderAll();
+            } catch (error) {
+                console.error('Erro geral:', error);
+                loadLocalData();
+            }
+        } else {
+            loadLocalData();
         }
     }
 
-    // Adicionar categoria
+    function loadLocalData() {
+        const localCategories = localStorage.getItem('localCategories');
+        const localDishes = localStorage.getItem('localDishes');
+        
+        categories = localCategories ? JSON.parse(localCategories) : [...initialCategories];
+        dishes = localDishes ? JSON.parse(localDishes) : [...initialDishes];
+        
+        renderAll();
+    }
+
+    function saveLocalData() {
+        localStorage.setItem('localCategories', JSON.stringify(categories));
+        localStorage.setItem('localDishes', JSON.stringify(dishes));
+    }
+
+    function generateId() {
+        return Date.now() + Math.floor(Math.random() * 1000);
+    }
+
+    // ------------------------------
+    // FUNÇÕES DE CATEGORIA
+    // ------------------------------
+
     async function addCategory(name) {
         const id = name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
-        const { error } = await supabase
-            .from('categories')
-            .insert([{ id, name }]);
         
-        if (error) throw error;
+        if (useSupabase) {
+            const { error } = await supabase
+                .from('categories')
+                .insert([{ id, name }]);
+            
+            if (error) throw error;
+        } else {
+            categories.push({ id, name });
+            saveLocalData();
+        }
         await loadData();
     }
 
-    // Atualizar categoria
     async function updateCategory(id, name) {
-        const { error } = await supabase
-            .from('categories')
-            .update({ name })
-            .eq('id', id);
-        
-        if (error) throw error;
+        if (useSupabase) {
+            const { error } = await supabase
+                .from('categories')
+                .update({ name })
+                .eq('id', id);
+            
+            if (error) throw error;
+        } else {
+            const cat = categories.find(c => c.id === id);
+            if (cat) {
+                cat.name = name;
+                saveLocalData();
+            }
+        }
         await loadData();
     }
 
-    // Remover categoria
     async function deleteCategory(id) {
-        const { error } = await supabase
-            .from('categories')
-            .delete()
-            .eq('id', id);
-        
-        if (error) throw error;
+        const dishCount = dishes.filter(d => d.category_id === id).length;
+        if (dishCount > 0) {
+            alert('Não é possível remover. Esta categoria tem pratos!');
+            return;
+        }
+
+        if (useSupabase) {
+            const { error } = await supabase
+                .from('categories')
+                .delete()
+                .eq('id', id);
+            
+            if (error) throw error;
+        } else {
+            categories = categories.filter(c => c.id !== id);
+            saveLocalData();
+        }
         await loadData();
     }
 
-    // Adicionar prato
+    // ------------------------------
+    // FUNÇÕES DE PRATOS
+    // ------------------------------
+
     async function addDish(dishData) {
-        const { error } = await supabase
-            .from('dishes')
-            .insert([dishData]);
-        
-        if (error) throw error;
+        if (useSupabase) {
+            const { error } = await supabase
+                .from('dishes')
+                .insert([dishData]);
+            
+            if (error) throw error;
+        } else {
+            dishData.id = generateId();
+            dishes.push(dishData);
+            saveLocalData();
+        }
         await loadData();
     }
 
-    // Atualizar prato
     async function updateDish(id, dishData) {
-        const { error } = await supabase
-            .from('dishes')
-            .update(dishData)
-            .eq('id', id);
-        
-        if (error) throw error;
+        if (useSupabase) {
+            const { error } = await supabase
+                .from('dishes')
+                .update(dishData)
+                .eq('id', id);
+            
+            if (error) throw error;
+        } else {
+            const index = dishes.findIndex(d => d.id === id);
+            if (index !== -1) {
+                dishes[index] = { ...dishData, id };
+                saveLocalData();
+            }
+        }
         await loadData();
     }
 
-    // Remover prato
     async function deleteDish(id) {
-        const { error } = await supabase
-            .from('dishes')
-            .delete()
-            .eq('id', id);
-        
-        if (error) throw error;
+        if (useSupabase) {
+            const { error } = await supabase
+                .from('dishes')
+                .delete()
+                .eq('id', id);
+            
+            if (error) throw error;
+        } else {
+            dishes = dishes.filter(d => d.id !== id);
+            saveLocalData();
+        }
         await loadData();
     }
 
@@ -206,19 +309,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderMenu() {
         menuGrid.innerHTML = '';
-        const searchTerm = searchInput.value.toLowerCase();
+        const searchTerm = (searchInput.value || '').toLowerCase();
         
         const filteredDishes = dishes.filter(dish => {
-            const matchesSearch = dish.name.toLowerCase().includes(searchTerm) || 
-                                   dish.description.toLowerCase().includes(searchTerm);
+            const matchesSearch = !searchTerm || 
+                (dish.name && dish.name.toLowerCase().includes(searchTerm)) || 
+                (dish.description && dish.description.toLowerCase().includes(searchTerm));
             const matchesCategory = currentFilter === 'todos' || dish.category_id === currentFilter;
             return matchesSearch && matchesCategory;
         });
 
-        filteredDishes.forEach(dish => {
+        filteredDishes.forEach((dish, index) => {
             const dishElement = document.createElement('div');
             dishElement.className = `menu-item ${dish.hot ? 'badge-hot' : ''}`;
-            dishElement.dataset.category = dish.category_id;
+            dishElement.style.opacity = '0';
+            dishElement.style.transform = 'translateY(30px)';
             
             let badgeHTML = '';
             if (dish.hot) badgeHTML = '<span class="badge badge-hot">🔥 Mais Vendido</span>';
@@ -236,22 +341,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             menuGrid.appendChild(dishElement);
-        });
-
-        const items = menuGrid.querySelectorAll('.menu-item');
-        items.forEach((item, index) => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(30px)';
+            
             setTimeout(() => {
-                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
+                dishElement.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                dishElement.style.opacity = '1';
+                dishElement.style.transform = 'translateY(0)';
             }, index * 100);
         });
     }
 
     function renderEditList() {
         editList.innerHTML = '';
+        
+        if (dishes.length === 0) {
+            editList.innerHTML = '<p style="text-align: center; color: #666;">Nenhum prato encontrado.</p>';
+            return;
+        }
+        
         dishes.forEach(dish => {
             const category = categories.find(c => c.id === dish.category_id);
             const item = document.createElement('div');
@@ -270,14 +376,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', () => editDish(parseInt(btn.dataset.id)));
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id) || btn.dataset.id;
+                editDish(id);
+            });
         });
 
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 if (confirm('Tem certeza que deseja remover este prato?')) {
                     try {
-                        await deleteDish(parseInt(btn.dataset.id));
+                        const id = parseInt(btn.dataset.id) || btn.dataset.id;
+                        await deleteDish(id);
                     } catch (error) {
                         console.error('Erro:', error);
                         alert('Erro ao remover prato');
@@ -287,17 +397,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    async function editDish(id) {
+    function editDish(id) {
         editingId = id;
         const dish = dishes.find(d => d.id === id);
         
-        document.getElementById('dishName').value = dish.name;
-        document.getElementById('dishPrice').value = dish.price;
-        document.getElementById('dishDesc').value = dish.description;
-        document.getElementById('dishCategory').value = dish.category_id;
+        if (!dish) {
+            alert('Prato não encontrado!');
+            return;
+        }
+        
+        document.getElementById('dishName').value = dish.name || '';
+        document.getElementById('dishPrice').value = dish.price || '';
+        document.getElementById('dishDesc').value = dish.description || '';
+        document.getElementById('dishCategory').value = dish.category_id || '';
         document.getElementById('dishImage').value = dish.image || '';
-        document.getElementById('dishHot').checked = dish.hot;
-        document.getElementById('dishPopular').checked = dish.popular;
+        document.getElementById('dishHot').checked = dish.hot || false;
+        document.getElementById('dishPopular').checked = dish.popular || false;
         
         uploadedImageBase64 = dish.image || '';
         if (dish.image) {
@@ -311,19 +426,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderCategoryList() {
-        categoryList.innerHTML = categories.map(cat => {
+        categoryList.innerHTML = '';
+        
+        categories.forEach(cat => {
             const dishCount = dishes.filter(d => d.category_id === cat.id).length;
-            return `
-                <div class="category-item">
-                    <input type="text" class="category-input" data-id="${cat.id}" value="${cat.name}" placeholder="Nome da categoria">
-                    <span style="color: #666; font-size: 0.9rem;">(${dishCount} pratos)</span>
-                    <div class="edit-buttons">
-                        <button class="save-btn" data-id="${cat.id}">Salvar</button>
-                        <button class="delete-btn" data-id="${cat.id}">Remover</button>
-                    </div>
+            const item = document.createElement('div');
+            item.className = 'category-item';
+            item.innerHTML = `
+                <input type="text" class="category-input" data-id="${cat.id}" value="${cat.name}" placeholder="Nome da categoria">
+                <span style="color: #666; font-size: 0.9rem;">(${dishCount} pratos)</span>
+                <div class="edit-buttons">
+                    <button class="save-btn" data-id="${cat.id}">Salvar</button>
+                    <button class="delete-btn" data-id="${cat.id}">Remover</button>
                 </div>
             `;
-        }).join('');
+            categoryList.appendChild(item);
+        });
 
         document.querySelectorAll('.save-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
@@ -333,7 +451,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (newName) {
                     try {
                         await updateCategory(id, newName);
-                        alert('Categoria atualizada!');
                     } catch (error) {
                         console.error('Erro:', error);
                         alert('Erro ao atualizar categoria');
@@ -345,19 +462,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const id = btn.dataset.id;
-                const dishCount = dishes.filter(d => d.category_id === id).length;
-                
-                if (dishCount > 0) {
-                    alert(`Não é possível remover. Esta categoria tem ${dishCount} prato(s). Mova os pratos para outra categoria primeiro.`);
-                    return;
-                }
-                
                 if (confirm('Tem certeza que deseja remover esta categoria?')) {
                     try {
                         await deleteCategory(id);
                     } catch (error) {
                         console.error('Erro:', error);
-                        alert('Erro ao remover categoria');
                     }
                 }
             });
@@ -420,11 +529,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 await addDish(dishData);
                 alert('Prato adicionado com sucesso!');
             }
-            renderEditList();
             resetForm();
         } catch (error) {
             console.error('Erro:', error);
-            alert('Erro ao salvar prato');
+            alert('Erro ao salvar prato: ' + error.message);
         }
     });
 
@@ -440,13 +548,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Categoria adicionada!');
             } catch (error) {
                 console.error('Erro:', error);
-                if (error.message.includes('duplicate')) {
-                    alert('Esta categoria já existe!');
-                } else {
-                    alert('Erro ao adicionar categoria');
-                }
+                alert('Erro ao adicionar categoria');
             }
         }
+    });
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
     });
 
     adminBtn.addEventListener('click', () => {
@@ -454,6 +562,11 @@ document.addEventListener('DOMContentLoaded', function() {
         renderEditList();
         renderCategoryList();
         renderCategorySelect();
+    });
+
+    document.getElementById('reconfigureSupabase').addEventListener('click', () => {
+        adminModal.classList.remove('active');
+        supabaseSetupModal.classList.add('active');
     });
 
     closeAdmin.addEventListener('click', () => {
@@ -522,7 +635,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Header scroll effect
     let lastScroll = 0;
     const header = document.querySelector('.header');
 
@@ -540,6 +652,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     header.style.transition = 'transform 0.3s ease';
 
-    // Inicializar
     checkSupabaseConfig();
 });
