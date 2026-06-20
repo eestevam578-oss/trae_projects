@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -15,6 +16,7 @@
 
 html {
     scroll-behavior: smooth;
+    touch-action: manipulation;
 }
 
 body {
@@ -23,6 +25,18 @@ body {
     color: var(--azul-marinho);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a,
+.category-btn {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .container {
@@ -555,17 +569,43 @@ body {
     transform: translateY(-2px);
 }
 
+/* Estilos para tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Estilos para celulares (até 768px) */
 @media (max-width: 768px) {
+    /* Header e Navegação */
+    .header {
+        padding: 10px 0;
+    }
+    
+    .nav {
+        padding: 10px 15px;
+    }
+    
+    .nav-logo h1 {
+        font-size: 1.2rem;
+    }
+    
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: -100%;
         flex-direction: column;
         background: var(--branco-gelo);
         width: 100%;
-        padding: 30px;
+        padding: 25px;
         box-shadow: 0 5px 20px var(--sombra);
         transition: left 0.3s ease;
+        gap: 20px;
     }
 
     .nav-menu.active {
@@ -574,10 +614,11 @@ body {
 
     .nav-toggle {
         display: flex;
+        padding: 5px;
     }
 
     .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
+        transform: rotate(45deg) translate(5px, 5px);
     }
 
     .nav-toggle.active span:nth-child(2) {
@@ -585,77 +626,241 @@ body {
     }
 
     .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    .nav-link {
+        font-size: 1.1rem;
+        padding: 10px 0;
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 80vh;
+        padding: 100px 20px 40px;
+    }
+    
+    .hero-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+        font-size: 2rem;
     }
 
     .hero h2 {
-        font-size: 2.2rem;
+        font-size: 2rem;
+        margin-bottom: 10px;
     }
 
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 20px;
     }
 
     .hero-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        padding: 15px 25px;
+        font-size: 1rem;
+    }
+
+    /* Menu Section */
+    .menu-section {
+        padding: 40px 15px;
+    }
+    
+    .section-header h3 {
+        font-size: 1.5rem;
+    }
+    
+    .search-container {
+        margin-bottom: 20px;
+    }
+    
+    .search-input {
+        padding: 12px 20px;
         font-size: 1rem;
     }
 
     .category-buttons {
         gap: 8px;
         justify-content: center;
-        top: 70px;
+        top: 60px;
+        padding: 12px 0;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .category-buttons::-webkit-scrollbar {
+        display: none;
     }
 
     .category-btn {
-        padding: 8px 14px;
+        padding: 10px 16px;
         font-size: 0.85rem;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     .category-section {
-        padding: 20px;
+        padding: 15px;
+        margin-bottom: 30px;
     }
 
     .category-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
     }
 
     .dish-item {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        padding: 12px 0;
     }
 
     .dish-info {
         padding-right: 0;
     }
+    
+    .dish-name {
+        font-size: 1.05rem;
+        line-height: 1.4;
+    }
+    
+    .dish-description {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
 
     .dish-price {
         align-self: flex-start;
+        font-size: 1.2rem;
     }
 
+    /* Reviews Section */
+    .reviews-section {
+        padding: 40px 15px;
+    }
+    
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .review-card {
+        padding: 20px;
+    }
+    
+    .review-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 40px 15px 30px;
+    }
+    
+    .footer-links {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .footer-link {
+        font-size: 0.95rem;
+    }
+    
+    .footer-bottom {
+        margin-top: 25px;
+        padding-top: 25px;
+        font-size: 0.9rem;
+    }
+
+    /* Botões flutuantes */
     .floating-whatsapp,
     .floating-phone {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+        right: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .floating-whatsapp {
+        bottom: 20px;
     }
 
     .floating-phone {
-        bottom: 90px;
+        bottom: 85px;
     }
 
     .back-to-top {
-        width: 45px;
-        height: 45px;
-        bottom: 150px;
-        right: 20px;
+        width: 48px;
+        height: 48px;
+        bottom: 155px;
+        right: 15px;
+        font-size: 1.3rem;
     }
 
     .share-btn {
         top: auto;
-        bottom: 210px;
-        right: 20px;
+        bottom: 225px;
+        right: 15px;
         padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Estilos para telas muito pequenas (até 480px) */
+@media (max-width: 480px) {
+    .hero {
+        min-height: 70vh;
+    }
+    
+    .hero h2 {
+        font-size: 1.7rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .hero-description {
         font-size: 0.9rem;
+    }
+    
+    .section-header h3 {
+        font-size: 1.35rem;
+    }
+    
+    .category-title {
+        font-size: 1.2rem;
+    }
+    
+    .dish-name {
+        font-size: 1rem;
+    }
+    
+    .dish-price {
+        font-size: 1.15rem;
+    }
+    
+    .category-btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
     }
 }

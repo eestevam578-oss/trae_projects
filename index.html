@@ -2,10 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Cardápio digital do Restaurante Sabor e Mar - Experiência gastronômica à beira-mar com os melhores frutos do mar">
     <meta name="keywords" content="restaurante, praia, cardápio digital, frutos do mar, comida brasileira">
     <meta name="author" content="Restaurante Sabor e Mar">
+    <meta name="theme-color" content="#023047">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta property="og:title" content="Restaurante Sabor e Mar - Cardápio Digital">
     <meta property="og:description" content="Cardápio digital do Restaurante Sabor e Mar">
     <meta property="og:type" content="website">
@@ -58,11 +61,12 @@
 
     <section id="menu" class="menu-section">
         <div class="container">
-            <h2 class="section-title">📋 Nosso Cardápio</h2>
+            <div class="section-header">
+                <h3>📋 Nosso Cardápio</h3>
+            </div>
             
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Buscar prato...">
-                <span class="search-icon">🔍</span>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar prato...">
             </div>
 
             <div class="category-buttons" id="categoryButtons">
@@ -72,48 +76,35 @@
         </div>
     </section>
 
-    <section id="avaliacoes" class="avaliacoes-section">
+    <section id="avaliacoes" class="reviews-section">
         <div class="container">
-            <h2 class="section-title">💬 O que dizem nossos clientes</h2>
-            <div class="avaliacoes-grid">
-                <div class="avaliacao-card">
-                    <div class="avaliacao-header">
-                        <div class="cliente-info">
-                            <div class="cliente-avatar">MC</div>
-                            <div>
-                                <h4>Maria Costa</h4>
-                                <div class="estrelas">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
+            <div class="section-header">
+                <h3>💬 O que dizem nossos clientes</h3>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Experiência incrível! A comida estava maravilhosa e a vista para o mar é espetacular. Voltarei com certeza!"</p>
+                    <div class="review-author">
+                        <div class="review-avatar">MC</div>
+                        <div class="review-name">Maria Costa</div>
                     </div>
-                    <p class="avaliacao-texto">"Experiência incrível! A comida estava maravilhosa e a vista para o mar é espetacular. Voltarei com certeza!"</p>
-                    <span class="avaliacao-data">há 2 dias</span>
                 </div>
-                <div class="avaliacao-card">
-                    <div class="avaliacao-header">
-                        <div class="cliente-info">
-                            <div class="cliente-avatar">JS</div>
-                            <div>
-                                <h4>João Silva</h4>
-                                <div class="estrelas">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
+                <div class="review-card">
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Melhor restaurante da praia! Os frutos do mar são frescos e super saborosos. Recomendo!"</p>
+                    <div class="review-author">
+                        <div class="review-avatar">JS</div>
+                        <div class="review-name">João Silva</div>
                     </div>
-                    <p class="avaliacao-texto">"Melhor restaurante da região! Os frutos do mar são frescos e o atendimento é impecável."</p>
-                    <span class="avaliacao-data">há 1 semana</span>
                 </div>
-                <div class="avaliacao-card">
-                    <div class="avaliacao-header">
-                        <div class="cliente-info">
-                            <div class="cliente-avatar">AP</div>
-                            <div>
-                                <h4>Ana Pereira</h4>
-                                <div class="estrelas">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
+                <div class="review-card">
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="review-text">"Atendimento excelente e ambiente super agradável. A moqueca foi a melhor que já comi!"</p>
+                    <div class="review-author">
+                        <div class="review-avatar">AS</div>
+                        <div class="review-name">Ana Santos</div>
                     </div>
-                    <p class="avaliacao-texto">"Ambiente perfeito para celebrar momentos especiais. Recomendo a mariscada especial!"</p>
-                    <span class="avaliacao-data">há 2 semanas</span>
                 </div>
             </div>
         </div>
