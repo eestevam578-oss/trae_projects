@@ -14,8 +14,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Biblioteca do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+    <!-- Modal de configuração do Supabase -->
+    <div class="admin-modal" id="supabaseSetup" style="display: flex;">
+        <div class="admin-content" style="max-width: 500px;">
+            <div class="admin-header">
+                <h2>⚙️ Configurar Supabase</h2>
+            </div>
+            <div class="tab-content active" style="display: block;">
+                <form id="supabaseForm">
+                    <div class="form-group">
+                        <label>URL do Projeto</label>
+                        <input type="text" id="supabaseUrl" placeholder="https://xxxxxx.supabase.co" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Chave Anônima (anon key)</label>
+                        <input type="text" id="supabaseKey" placeholder="sua-chave-aqui" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar e Continuar</button>
+                    <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                        Encontre essas informações no painel do Supabase em Project Settings > API.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <header class="header">
         <nav class="nav">
             <div class="nav-logo">
