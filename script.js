@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateArrows() {
         const container = categoryButtonsContainer;
+        if (!container) return;
+        
         const isAtStart = container.scrollLeft <= 10;
         const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
         
@@ -132,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function scrollCarousel(direction) {
-        const scrollAmount = 200;
+        const scrollAmount = 150;
         if (direction === 'left') {
             categoryButtonsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         } else {
@@ -292,4 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     renderCategoryButtons();
     renderMenu();
+    
+    // Atualiza as setas após o carregamento completo
+    setTimeout(updateArrows, 100);
+    setTimeout(updateArrows, 500);
 });
