@@ -119,6 +119,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryButtonsContainer = document.getElementById('categoryButtons');
     const backToTop = document.getElementById('backToTop');
     const shareBtn = document.getElementById('shareBtn');
+    const arrowLeft = document.getElementById('arrowLeft');
+    const arrowRight = document.getElementById('arrowRight');
+
+    function updateArrows() {
+        const container = categoryButtonsContainer;
+        const isAtStart = container.scrollLeft <= 10;
+        const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
+        
+        arrowLeft.disabled = isAtStart;
+        arrowRight.disabled = isAtEnd;
+    }
+
+    function scrollCarousel(direction) {
+        const scrollAmount = 200;
+        if (direction === 'left') {
+            categoryButtonsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            categoryButtonsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
 
     function renderCategoryButtons() {
         categoryButtonsContainer.innerHTML = '';
@@ -141,6 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             categoryButtonsContainer.appendChild(button);
         });
+        
+        updateArrows();
     }
 
     function renderMenu() {
@@ -257,6 +279,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     header.style.transition = 'transform 0.3s ease';
+    
+    // Event listeners para as setas do carrossel
+    arrowLeft.addEventListener('click', () => scrollCarousel('left'));
+    arrowRight.addEventListener('click', () => scrollCarousel('right'));
+    
+    // Atualiza as setas quando o carrossel rola
+    categoryButtonsContainer.addEventListener('scroll', updateArrows);
+    
+    // Atualiza as setas quando a janela é redimensionada
+    window.addEventListener('resize', updateArrows);
+    
     renderCategoryButtons();
     renderMenu();
 });

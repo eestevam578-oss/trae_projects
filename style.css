@@ -272,30 +272,78 @@ a,
     box-shadow: 0 0 0 5px rgba(212, 163, 115, 0.1);
 }
 
-.category-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: flex-start;
-    margin-bottom: 30px;
-    padding: 15px 0;
+.carousel-wrapper {
     position: sticky;
     top: 80px;
     background: var(--branco-gelo);
     z-index: 100;
+    margin: 0 -15px 30px -15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carousel-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--dourado-suave);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--sombra);
+}
+
+.carousel-arrow:hover {
+    background: var(--azul-marinho);
+    transform: scale(1.1);
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.category-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+}
+
+.category-buttons::-webkit-scrollbar {
+    display: none;
 }
 
 .category-btn {
-    padding: 8px 16px;
+    padding: 10px 18px;
     border: none;
     background: var(--cinza-claro);
     color: var(--azul-marinho);
-    border-radius: 8px;
+    border-radius: 20px;
     font-weight: 500;
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .category-btn:hover {
@@ -693,11 +741,22 @@ a,
         font-size: 1rem;
     }
 
+    .carousel-wrapper {
+        top: 60px;
+        padding: 12px 10px;
+        margin: 0 -10px 20px -10px;
+        gap: 8px;
+    }
+    
+    .carousel-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
+    }
+    
     .category-buttons {
         gap: 8px;
-        justify-content: center;
-        top: 60px;
-        padding: 12px 0;
+        justify-content: flex-start;
         overflow-x: auto;
         flex-wrap: nowrap;
         -webkit-overflow-scrolling: touch;
@@ -709,7 +768,7 @@ a,
     }
 
     .category-btn {
-        padding: 10px 16px;
+        padding: 10px 18px;
         font-size: 0.85rem;
         white-space: nowrap;
         flex-shrink: 0;
