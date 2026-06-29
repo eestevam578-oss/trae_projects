@@ -213,7 +213,18 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 174, name: 'Espaguete à Almôndega', price: 'R$ 44,00', description: '', category: 'executivos', hot: false, popular: false },
         { id: 175, name: 'Frango com Creme de Milho', price: 'R$ 42,00', description: '', category: 'executivos', hot: false, popular: false },
         { id: 176, name: 'Strogonoff de Carne', price: 'R$ 52,00', description: '', category: 'executivos', hot: false, popular: false },
-        { id: 177, name: 'Strogonoff de Frango', price: 'R$ 38,00', description: '', category: 'executivos', hot: false, popular: false }
+        { id: 177, name: 'Strogonoff de Frango', price: 'R$ 38,00', description: '', category: 'executivos', hot: false, popular: false },
+        
+        // Pratos Kids
+        { id: 178, name: 'Kids file mignon', price: 'R$ 34,90', description: 'Acompanha arroz branco, feijão e batata frita.', category: 'kids', hot: false, popular: false },
+        { id: 179, name: 'Kids file de peixe', price: 'R$ 32,90', description: 'Acompanha arroz branco, feijão e batata frita.', category: 'kids', hot: false, popular: false },
+        { id: 180, name: 'Kids file de frango', price: 'R$ 27,90', description: 'Acompanha arroz branco, feijão e batata frita.', category: 'kids', hot: false, popular: false },
+        { id: 181, name: 'Kids Espaguetinho(ao sugo ou na manteiga)', price: 'R$ 27,90', description: '', category: 'kids', hot: false, popular: false },
+        
+        // Lanches
+        { id: 182, name: 'X burger', price: 'R$ 32,90', description: 'Todos os lanches acompanha Batata Frita', category: 'lanches', hot: false, popular: false },
+        { id: 183, name: 'X salada', price: 'R$ 34,90', description: 'Todos os lanches acompanha Batata Frita', category: 'lanches', hot: false, popular: false },
+        { id: 184, name: 'X bacon', price: 'R$ 38,90', description: 'Todos os lanches acompanha Batata Frita', category: 'lanches', hot: false, popular: false }
     ];
 
     const categories = [
@@ -236,6 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 'cervejas', name: 'Cervejas' },
         { id: 'drinks', name: 'Drinks' },
         { id: 'executivos', name: 'Pratos Executivos' },
+        { id: 'kids', name: 'Pratos Kids' },
+        { id: 'lanches', name: 'Lanches' },
     ];
 
     const navToggle = document.getElementById('navToggle');
