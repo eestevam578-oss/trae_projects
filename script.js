@@ -223,21 +223,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // DRINKS
         { id: 183, name: "Caipirinha de Cachaça", price: "R$ 24,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 1 },
-        { id: 184, name: "Caipirinha de Saquê", price: "R$ 29,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 2 },
-        { id: 185, name: "Caipiroska", price: "R$ 34,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 3 },
-        { id: 186, name: "Negroni", price: "R$ 39,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 4 },
-        { id: 187, name: "Aperol Spritz", price: "R$ 33,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 5 },
+        { id: 184, name: "Caipirinha de Saquê", price: "R$ 25,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 2 },
+        { id: 185, name: "Caipiroska", price: "R$ 29,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 3 },
+        { id: 186, name: "Negroni", price: "R$ 34,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 4 },
+        { id: 187, name: "Aperol Spritz", price: "R$ 31,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 5 },
         { id: 188, name: "Moscow Mule", price: "R$ 34,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 6 },
         { id: 189, name: "Dry Martini", price: "R$ 32,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 7 },
         { id: 190, name: "Piña Colada", price: "R$ 32,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 8 },
-        { id: 191, name: "Margarita", price: "R$ 28,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 9 },
-        { id: 192, name: "Sex on the Beach", price: "R$ 32,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 10 },
+        { id: 191, name: "Margarita", price: "R$ 30,00", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 9 },
+        { id: 192, name: "Sex on the Beach", price: "R$ 29,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 10 },
         { id: 193, name: "Lagoa Azul", price: "R$ 28,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 11 },
-        { id: 194, name: "Gin Tropical com Espuma", price: "R$ 35,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 12 },
+        { id: 194, name: "Gin Tropical com Espuma", price: "R$ 31,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 12 },
         { id: 195, name: "Whisky Sour", price: "R$ 33,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 13 },
-        { id: 196, name: "Gin Tônica", price: "R$ 31,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 14 },
+        { id: 196, name: "Gin Tônica", price: "R$ 29,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 14 },
         { id: 197, name: "Cosmopolitan", price: "R$ 38,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 15 },
-        { id: 198, name: "Penicillin", price: "R$ 38,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 16 },
+        { id: 198, name: "Penicillin", price: "R$ 33,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 16 },
         { id: 199, name: "Mojito", price: "R$ 31,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 17 }
     ];
 
