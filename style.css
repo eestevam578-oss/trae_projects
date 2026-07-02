@@ -519,51 +519,7 @@ a,
     opacity: 0.7;
 }
 
-.floating-whatsapp {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: #25D366;
-    color: var(--branco-gelo);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    text-decoration: none;
-    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-    z-index: 999;
-    transition: transform 0.3s ease;
-}
 
-.floating-whatsapp:hover {
-    transform: scale(1.1);
-}
-
-.floating-phone {
-    position: fixed;
-    bottom: 100px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: var(--dourado-suave);
-    color: var(--branco-gelo);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    text-decoration: none;
-    box-shadow: 0 5px 20px rgba(212, 163, 115, 0.4);
-    z-index: 999;
-    transition: transform 0.3s ease;
-}
-
-.floating-phone:hover {
-    transform: scale(1.1);
-}
 
 .back-to-top {
     position: fixed;
@@ -853,23 +809,7 @@ a,
         font-size: 0.9rem;
     }
 
-    /* Botões flutuantes */
-    .floating-whatsapp,
-    .floating-phone {
-        width: 55px;
-        height: 55px;
-        font-size: 1.6rem;
-        right: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
 
-    .floating-whatsapp {
-        bottom: 20px;
-    }
-
-    .floating-phone {
-        bottom: 85px;
-    }
 
     .back-to-top {
         width: 48px;
@@ -926,4 +866,23 @@ a,
         padding: 8px 14px;
         font-size: 0.8rem;
     }
+
+    /* Melhorias para toques em telas sensíveis ao toque */
+    button, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Melhorias para responsividade geral */
+input {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Evitar que o usuário dê zoom ao tocar */
+button:active {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
