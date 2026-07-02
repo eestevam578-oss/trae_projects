@@ -1,11 +1,4 @@
-# Cardápio Digital com Supabase
-
-## Instruções de Configuração
-
-### 1. Criar Projeto no Supabase
-1. Acesse [supabase.com](https://supabase.com) e crie uma conta gratuita
-2. Crie um novo projeto
-3. Acesse o **SQL Editor** e execute os comandos abaixo para criar as tabelas:
+# Cardápio Digital
 
 ```sql
 -- Tabela de Categorias
