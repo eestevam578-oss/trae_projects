@@ -238,11 +238,27 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 196, name: "Gin Tônica", price: "R$ 29,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 14 },
         { id: 197, name: "Cosmopolitan", price: "R$ 38,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 15 },
         { id: 198, name: "Penicillin", price: "R$ 33,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 16 },
-        { id: 199, name: "Mojito", price: "R$ 31,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 17 }
+        { id: 199, name: "Mojito", price: "R$ 31,90", description: "", category: "drinks", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 17 },
+        // Pratos Executivos
+        { id: 200, name: "Bife a Cavalo", price: "R$ 45,00", description: "Ancho grelhado, ovo frito acompanha arroz, fritas farofa, vinagrete e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 1 },
+        { id: 201, name: "Omelete com Queijo", price: "R$ 35,00", description: "Acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 2 },
+        { id: 202, name: "Filé de Frango Grelhado", price: "R$ 32,00", description: "Filé grelhado acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 3 },
+        { id: 203, name: "Filé de Frango Empanado", price: "R$ 35,00", description: "Filé de frango à milanesa acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 4 },
+        { id: 204, name: "Parmegiana de Frango", price: "R$ 38,00", description: "Filé à milanesa coberto com mussarela e molho sugo, acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 5 },
+        { id: 205, name: "Parmegiana de Mignon", price: "R$ 52,00", description: "Filé à milanesa coberto com mussarela e molho sugo, acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 6 },
+        { id: 206, name: "Parmegiana de Linguado", price: "R$ 48,00", description: "Filé à milanesa coberto com mussarela e molho sugo acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 7 },
+        { id: 207, name: "Tilápia à Dorê", price: "R$ 46,00", description: "Filé grelhado acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 8 },
+        { id: 208, name: "Panqueca (mexilhão, camarão, frango ou carne)", price: "R$ 52,00", description: "Acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 9 },
+        { id: 209, name: "Espaguete com Almôndega (Ao molho sugo)", price: "R$ 44,00", description: "", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 10 },
+        { id: 210, name: "Frango com Creme de Milho", price: "R$ 42,00", description: "Filé à milanesa coberto creme de milho acompanha arroz, fritas e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 11 },
+        { id: 211, name: "Strogonoff de Mignon", price: "R$ 52,00", description: "Mignon em cubos ao molho rosé acompanha arroz, batata palha e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 12 },
+        { id: 212, name: "Strogonoff de Frango", price: "R$ 38,00", description: "Frango em cubos ao molho rosé acompanha arroz, batata palha e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 13 },
+        { id: 213, name: "Picanha com queijo coalho", price: "R$ 89,00", description: "Acompanha arroz, fritas, queijo coalho selado, farofa, vinagrete e salada.", category: "pratos-executivos", image: PLACEHOLDER_IMAGE, disponivel: true, destaque: false, ordem: 14 }
     ];
 
     const categories = [
         { id: "entradas", name: "Entradas e Porções" },
+        { id: "pratos-executivos", name: "Pratos Executivos" },
         { id: "saladas", name: "Saladas" },
         { id: "frango", name: "Frango" },
         { id: "carnes", name: "Carnes" },
